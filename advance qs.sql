@@ -19,3 +19,21 @@ JOIN pizza_types
     ON pizzas.pizza_type_id = pizza_types.pizza_type_id
 GROUP BY pizza_types.name
 ORDER BY revenue_percentage DESC;
+
+
+
+
+
+--qs 2
+SELECT
+    orders.order_date,
+    SUM(orders_details.quantity * pizzas.price) AS daily_revenue,
+    SUM(SUM(orders_details.quantity * pizzas.price))
+        OVER (ORDER BY orders.order_date) AS cumulative_revenue
+FROM orders
+JOIN orders_details
+    ON orders.order_id = orders_details.order_id
+JOIN pizzas
+    ON orders_details.pizza_id = pizzas.pizza_id
+GROUP BY orders.order_date
+ORDER BY orders.order_date;
