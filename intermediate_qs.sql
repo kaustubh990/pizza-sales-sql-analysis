@@ -60,3 +60,19 @@ JOIN pizza_types
 GROUP BY pizza_types.name
 ORDER BY revenue DESC
 LIMIT 5;
+
+
+
+
+--qs-Find the average number of pizzas ordered per day.
+SELECT
+    ROUND(AVG(total_pizzas), 2) AS avg_pizzas_per_day
+FROM (
+    SELECT
+        orders.order_date,
+        SUM(orders_details.quantity) AS total_pizzas
+    FROM orders
+    JOIN orders_details
+        ON orders.order_id = orders_details.order_id
+    GROUP BY orders.order_date
+) AS daily_orders;
