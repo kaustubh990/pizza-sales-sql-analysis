@@ -63,3 +63,13 @@ FROM
 GROUP BY pizza_types.name
 ORDER BY quantity DESC
 LIMIT 5;
+
+
+
+--Which hour of the day receives the highest number of orders?
+SELECT
+    HOUR(orders.time) AS order_hour,
+    COUNT(orders.order_id) AS total_orders
+FROM orders
+GROUP BY HOUR(orders.time)
+ORDER BY total_orders DESC;
