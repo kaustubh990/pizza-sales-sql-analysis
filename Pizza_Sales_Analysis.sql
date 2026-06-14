@@ -68,8 +68,10 @@ LIMIT 5;
 
 --Which hour of the day receives the highest number of orders?
 SELECT
-    HOUR(orders.time) AS order_hour,
-    COUNT(orders.order_id) AS total_orders
-FROM orders
-GROUP BY HOUR(orders.time)
-ORDER BY total_orders DESC;
+    pizzas.size,
+    ROUND(SUM(orders_details.quantity * pizzas.price), 2) AS revenue
+FROM orders_details
+JOIN pizzas
+    ON orders_details.pizza_id = pizzas.pizza_id
+GROUP BY pizzas.size
+ORDER BY revenue DESC;
