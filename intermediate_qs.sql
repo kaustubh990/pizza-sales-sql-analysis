@@ -104,3 +104,8 @@ JOIN pizza_types
 GROUP BY pizza_types.name
 ORDER BY revenue DESC
 LIMIT 1;
+
+
+
+--What is the average order value (AOV) for all pizza orders?
+
